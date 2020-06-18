@@ -10,6 +10,38 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'pl
 
 db = SQLAlchemy(app)
 
+@app.cli.command('db_create')
+def db_create():
+    db.create_all()
+    print('Database created successfully')
+
+
+
+@app.cli.command('db_drop')
+def db_drop():
+    db.drop_all()
+    print('Database dropped')
+
+
+@app.cli.command('db_seed')
+def db_seed():
+    mercury = Planet(planet_name='Mercury',
+                    planet_type = 'Class D',
+                    home_star = 'Sol',
+                    mass= 3.258e23,
+                    radius = 1516,
+                    distance = 35.98e6)
+
+    venus = Planet(planet_name='Mercury',
+                    planet_type = 'Class K',
+                    home_star = 'Sol',
+                    mass= 4.867e24,
+                    radius = 3760,
+                    distance = 67.24e6)
+
+    db.session.add()
+
+
 @app.route('/')
 def hello_world():
     return jsonify('Buyaka wwwwoi') 
